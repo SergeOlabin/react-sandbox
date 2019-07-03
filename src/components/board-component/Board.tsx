@@ -1,6 +1,9 @@
 import React from 'react';
 import { BulbComponent } from '../bulb/Bulb';
 import { FooterComponent } from '../footer/Footer';
+import { WaterSource } from '../water-source/WaterSource';
+import './board.scss';
+import { Water } from '../water/Water';
 
 interface BoardComponentState {
     bulbs: Bulb[],
@@ -27,8 +30,14 @@ export class BoardComponent extends React.Component<{}, BoardComponentState> {
         );
 
         return(
-            <div>
-                <ul className="bulbs">{bulbs}</ul>
+            <div className="board">
+                <div className="bulbs-container">
+                    <ul className="bulbs">{bulbs}</ul>
+                    <WaterSource>
+                        <Water></Water>
+                    </WaterSource>
+                </div>
+
                 <FooterComponent />
             </div>
         )

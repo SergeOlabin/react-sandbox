@@ -1,9 +1,14 @@
 import React from 'react';
+import { Button } from 'react-bootstrap';
 
 export class FooterComponent extends React.Component {
     render() {
         return (
-            <span>FOOTER</span>
+            <div className="footer">
+                <Button variant="light" className="add-bulb-button">
+                    <i className="fas fa-plus-circle"></i>
+                </Button>
+            </div>
         )
     }
 }
