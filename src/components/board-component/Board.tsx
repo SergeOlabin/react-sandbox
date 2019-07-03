@@ -26,13 +26,22 @@ export class BoardComponent extends React.Component<{}, BoardComponentState> {
         super(props);
     }
 
-    addBulb(volume: number) {
+    componentDidMount() {
+        this.addBulb({
+            volume: 10,
+            waterLevel: 2,
+        });
+    }
+
+    addBulb({ volume, waterLevel = 0 }: { volume: number, waterLevel: number}) {
         const bulbs = [...this.state.bulbs];
+        const volumeValidated = volume || 1;
+
         bulbs.push({
             id: id++,
-            volume,
-            waterLevel: 0,
-        })
+            volume: volumeValidated,
+            waterLevel,
+        });
         this.setState({ bulbs });
     }
 
@@ -46,11 +55,11 @@ export class BoardComponent extends React.Component<{}, BoardComponentState> {
                 <div className="bulbs-container">
                     <ul className="bulbs">{bulbs}</ul>
                     <WaterSource>
-                        <Water></Water>
+                        <Water waterLevel='inf'></Water>
                     </WaterSource>
                 </div>
 
-                <FooterComponent />
+                <FooterComponent addBulb={this.addBulb.bind(this)}/>
             </div>
         )
     }
