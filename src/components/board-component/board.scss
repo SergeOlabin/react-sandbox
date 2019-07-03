@@ -1,5 +1,5 @@
 .bulbs-container {
-    $bulb-width: 200px;
+    $bulb-width: 150px;
 
     background-color: yellow;
     width: 100%;
@@ -10,13 +10,24 @@
         flex-grow: 1;
     }
 
+    .water-bulb {
+        position: relative;
+
+        .water-level-label {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+    }
+
     .water-source {
         height: 100%;
-        box-sizing: border-box;
         width: $bulb-width;
         background-color: white;
-        border-width: 0 5px 5px 5px;
         border: solid #302f2f;
+        border-width: 5px;
+        border-top-width: 0px;
         border-radius: 5px;
         padding: 2px;
     }
@@ -28,33 +39,3 @@
     background-color: aqua;
 }
 
-.footer {
-    $footer-color: #cacaca;
-    $footer-btn-color: white;
-
-    background-color: $footer-color;
-    border-radius: 20px;
-    width: 100%;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0 0 4px 4px white inset;
-
-    .add-bulb-button {
-        border-radius: 50%;
-        width: auto;
-        height: auto;
-        padding: 0;
-        border: 0;
-        color: $footer-color;
-        border-color: $footer-btn-color;
-        background-color: $footer-btn-color;
-
-        i {
-            border-radius: 50%;
-            font-size: 70px;
-            display: block;
-        }
-    }
-}

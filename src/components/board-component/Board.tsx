@@ -9,11 +9,13 @@ interface BoardComponentState {
     bulbs: Bulb[],
 }
 
+let id = 0;
+
 export interface Bulb {
     id: number,
+    volume: number,
     waterLevel: number,
 }
-
 
 export class BoardComponent extends React.Component<{}, BoardComponentState> {
     state: BoardComponentState = {
@@ -22,6 +24,16 @@ export class BoardComponent extends React.Component<{}, BoardComponentState> {
 
     constructor(props: any) {
         super(props);
+    }
+
+    addBulb(volume: number) {
+        const bulbs = [...this.state.bulbs];
+        bulbs.push({
+            id: id++,
+            volume,
+            waterLevel: 0,
+        })
+        this.setState({ bulbs });
     }
 
     render() {
