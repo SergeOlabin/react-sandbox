@@ -12,20 +12,15 @@ interface AddBulbModalState {
     checked: boolean,
 }
 
-export class AddBulbModal extends React.Component<AddBulbModalProps, {}> {
+export class AddBulbModal extends React.Component<AddBulbModalProps, AddBulbModalState> {
     volumeInput: React.RefObject<any>
         = React.createRef();
     state: AddBulbModalState = {
         checked: false,
     }
 
-    constructor(props: AddBulbModalProps) {
-        super(props);
-    }
-
-    handleClick(asd: any) {
-        console.log(asd.target.checked);
-        this.setState({ checked: asd.target.checked })
+    handleClick(evt: any) {
+        this.setState({ checked: evt.target.checked })
     }
 
     onSuccess() {

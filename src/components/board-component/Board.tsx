@@ -24,6 +24,7 @@ export class BoardComponent extends React.Component<{}, BoardComponentState> {
         selectedBulb: null,
     };
 
+    // MOCK
     componentDidMount() {
         this.addBulb({
             volume: 10,
@@ -45,6 +46,26 @@ export class BoardComponent extends React.Component<{}, BoardComponentState> {
             waterLevel,
         });
         this.setState({ bulbs });
+    }
+
+    emptyBulb(bulb: Bulb) {
+        this.setState((currentState: BoardComponentState) => {
+            const newState = { ...currentState };
+            const bulbIndex = newState.bulbs.findIndex((elem: Bulb) => bulb === elem);
+            newState.bulbs[bulbIndex].waterLevel = 0;
+
+            return newState;
+        });
+    }
+
+    removeBulb(bulb: Bulb) {
+        this.setState((currentState: BoardComponentState) => {
+            const newState = { ...currentState };
+            const bulbIndex = newState.bulbs.findIndex((elem: Bulb) => bulb === elem);
+            newState.bulbs.splice(bulbIndex, 1);
+
+            return newState;
+        });
     }
 
     bubleClick(bulb: Bulb | WaterSource) {
@@ -91,9 +112,13 @@ export class BoardComponent extends React.Component<{}, BoardComponentState> {
         const bulbs = this.state.bulbs.map((bulb: Bulb) =>
             <li key={bulb.id}>
                 <BulbComponent
+                    value={bulb}
                     selected={isEqual(this.state.selectedBulb, bulb)}
                     onClick={this.bubleClick.bind(this)}
-                    value={bulb} />
+                    emptyBulb={this.emptyBulb.bind(this)}
+                    removeBulb={this.removeBulb.bind(this)}
+                    />
+
             </li>
         );
 
