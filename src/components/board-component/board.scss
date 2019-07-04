@@ -1,12 +1,12 @@
 .bulbs-container {
     $bulb-width: 150px;
 
-    // background-color: yellow;
     display: flex;
     justify-content: center;
     align-items: flex-end;
     width: 100%;
-    height: 500px;
+    height: 530px;
+    padding: 15px;
 
     ul.bulbs {
         flex-grow: 1;
