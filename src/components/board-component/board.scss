@@ -36,6 +36,8 @@
             top: 50%;
             left: 50%;
             transform: translateX(-50%);
+            cursor: default;
+            user-select: none;
         }
 
         .corner-icon {

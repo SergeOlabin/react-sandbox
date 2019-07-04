@@ -30,10 +30,6 @@ export class BoardComponent extends React.Component<{}, BoardComponentState> {
             volume: 10,
             waterLevel: 0,
         });
-        this.addBulb({
-            volume: 10,
-            waterLevel: 5,
-        });
     }
 
     addBulb({ volume, waterLevel = 0 }: { volume: number,  waterLevel: number}) {
@@ -75,6 +71,8 @@ export class BoardComponent extends React.Component<{}, BoardComponentState> {
     }
 
     private _transferLiquid(bulb: Bulb | WaterSource) {
+        if (bulb instanceof WaterSource) return;
+
         const destinationBulbIndex = this.state.bulbs.findIndex((elem: Bulb) => bulb === elem);
         const newBulbs = [...this.state.bulbs];
         const destinationBulb = newBulbs[destinationBulbIndex];

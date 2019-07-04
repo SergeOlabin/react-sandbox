@@ -15,12 +15,23 @@ interface AddBulbModalState {
 export class AddBulbModal extends React.Component<AddBulbModalProps, AddBulbModalState> {
     volumeInput: React.RefObject<any>
         = React.createRef();
-    state: AddBulbModalState = {
-        checked: false,
+    state: AddBulbModalState;
+
+    constructor(props: AddBulbModalProps) {
+        super(props);
+
+        this.state = {
+            checked: false,
+        };
     }
 
-    handleClick(evt: any) {
+    handleCheckboxClick(evt: any) {
         this.setState({ checked: evt.target.checked })
+    }
+
+    closeModal() {
+        this.props.onClose();
+        this.setState({ checked: false });
     }
 
     onSuccess() {
@@ -31,12 +42,12 @@ export class AddBulbModal extends React.Component<AddBulbModalProps, AddBulbModa
             : 0;
 
         this.props.onSuccess({ volume, waterLevel });
-        this.props.onClose();
+        this.closeModal();
     }
 
     render() {
         return (
-            <Modal show={this.props.show} onHide={() => this.props.onClose()}>
+            <Modal show={this.props.show} onHide={() => this.closeModal()}>
                 <Modal.Header closeButton>
                     <Modal.Title>Modal heading</Modal.Title>
                 </Modal.Header>
@@ -59,12 +70,12 @@ export class AddBulbModal extends React.Component<AddBulbModalProps, AddBulbModa
                         </InputGroup.Prepend>
                         <InputGroup.Checkbox
                             aria-label="Checkbox for following text input"
-                            onClick={asd => this.handleClick(asd)}
+                            onClick={asd => this.handleCheckboxClick(asd)}
                             />
                     </InputGroup>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={() => this.props.onClose()}>
+                    <Button variant="secondary" onClick={() => this.closeModal()}>
                         Close
                     </Button>
                     <Button variant="primary" onClick={() => this.onSuccess()}>
