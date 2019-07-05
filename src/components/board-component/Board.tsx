@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { RefObject } from 'react';
 import { BulbComponent } from '../bulb/Bulb';
 import { FooterComponent } from '../footer/Footer';
 import { WaterSource } from '../water-source/WaterSource';
@@ -9,9 +9,9 @@ import { isEqual, max } from 'lodash';
 interface BoardComponentState {
     bulbs: Bulb[],
     selectedBulb: Bulb | WaterSource | null,
+    bulbId: number,
 }
 
-let id = 0;
 export interface Bulb {
     id: number,
     volume: number,
@@ -20,24 +20,28 @@ export interface Bulb {
 
 export class BoardComponent extends React.Component<{}, BoardComponentState> {
     state: BoardComponentState = {
-        bulbs: [],
+        bulbId: 2,
+        bulbs: [
+            {
+                id: 0,
+                volume: 10,
+                waterLevel: 0,
+            },
+            {
+                id: 1,
+                volume: 10,
+                waterLevel: 2,
+            }
+        ],
         selectedBulb: null,
     };
-
-    // MOCK
-    componentDidMount() {
-        this.addBulb({
-            volume: 10,
-            waterLevel: 0,
-        });
-    }
 
     addBulb({ volume, waterLevel = 0 }: { volume: number,  waterLevel: number}) {
         const bulbs = [...this.state.bulbs];
         const volumeValidated = volume || 1;
 
         bulbs.push({
-            id: id++,
+            id: this.state.bulbId++,
             volume: volumeValidated,
             waterLevel,
         });
@@ -108,26 +112,25 @@ export class BoardComponent extends React.Component<{}, BoardComponentState> {
 
     render() {
         const bulbs = this.state.bulbs.map((bulb: Bulb) =>
-            <li key={bulb.id}>
-                <BulbComponent
-                    value={bulb}
-                    selected={isEqual(this.state.selectedBulb, bulb)}
-                    onClick={this.bubleClick.bind(this)}
-                    emptyBulb={this.emptyBulb.bind(this)}
-                    removeBulb={this.removeBulb.bind(this)}
-                    />
+            <BulbComponent
+                key={bulb.id}
+                value={bulb}
+                selected={isEqual(this.state.selectedBulb, bulb)}
+                onClick={this.bubleClick.bind(this)}
+                emptyBulb={this.emptyBulb.bind(this)}
+                removeBulb={this.removeBulb.bind(this)}
+                />
 
-            </li>
         );
 
         return(
             <div className="board" onClick={this.removeBulbSelection.bind(this)}>
                 <div className="bulbs-container">
-                    <ul className="bulbs">{bulbs}</ul>
+                    <div className="bulbs">{bulbs}</div>
                     <WaterSource
                         selected={this.state.selectedBulb instanceof WaterSource}
-                        onClick={this.bubleClick.bind(this)}>
-                        <Water waterLevel='inf'></Water>
+                        onClick={this.bubleClick.bind(this)}
+                        ><Water waterLevel='inf'></Water>
                     </WaterSource>
                 </div>
 

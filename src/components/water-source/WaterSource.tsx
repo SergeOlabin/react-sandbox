@@ -1,5 +1,6 @@
 import React from 'react';
 import { selectedBulbStyles } from '../board-component/SelectedBulbStyles.const';
+import './water-source.scss';
 
 interface WaterSourceProps {
     onClick: Function,

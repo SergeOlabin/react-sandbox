@@ -27,8 +27,9 @@ export class FooterComponent extends React.Component<FooterProps, FooterState> {
                 <Button
                     onClick={() => this.setState({ showAddBulbModal: true })}
                     variant="light"
-                    className="add-bulb-button">
-                        <i className="fas fa-plus-circle"></i>
+                    className="add-bulb-button"
+                    // disabled={true}
+                    ><i className="fas fa-plus-circle"></i>
                 </Button>
                 <AddBulbModal
                     show={this.state.showAddBulbModal}

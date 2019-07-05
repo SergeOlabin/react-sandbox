@@ -2,6 +2,7 @@ import React from 'react';
 import { Bulb } from '../board-component/Board';
 import { Water } from '../water/Water';
 import { selectedBulbStyles } from '../board-component/SelectedBulbStyles.const';
+import './bulb.scss';
 
 interface BulbProps {
     value: Bulb,

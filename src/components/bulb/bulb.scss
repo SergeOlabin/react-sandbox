@@ -1,0 +1,58 @@
+@import '../../variables.scss';
+
+$bulb-width: 150px;
+
+.water-bulb {
+    width: $bulb-width;
+    max-height: 100%;
+    min-height: 25px;
+    position: relative;
+    background-color: white;
+    border: solid #302f2f;
+    border-width: 5px;
+    border-top-width: 0px;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-end;
+    margin-right: 20px;
+
+    .water-level-label {
+        width: 100%;
+        display: inline-flex;
+        justify-content: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        cursor: default;
+        user-select: none;
+    }
+
+    .corner-icon {
+        position: absolute;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: #cacaca;
+        border-radius: 50%;
+        cursor: pointer;
+    }
+
+    .empty {
+        top: -7px;
+        left: -15px;
+        border: solid 2px black;
+
+        i {
+            font-size: 15px;
+        }
+    }
+
+    .remove {
+        font-size: 26px;
+        top: -7px;
+        right: -14px;
+    }
+}

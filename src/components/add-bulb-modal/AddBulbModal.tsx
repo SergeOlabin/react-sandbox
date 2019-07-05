@@ -26,7 +26,7 @@ export class AddBulbModal extends React.Component<AddBulbModalProps, AddBulbModa
     }
 
     handleCheckboxClick(evt: any) {
-        this.setState({ checked: evt.target.checked })
+        this.setState({ checked: evt.target.checked });
     }
 
     closeModal() {
@@ -35,10 +35,10 @@ export class AddBulbModal extends React.Component<AddBulbModalProps, AddBulbModa
     }
 
     onSuccess() {
-        const volume = +this.volumeInput.current.value || 1;
+        const volume = +this.volumeInput.current.value;
 
         const waterLevel = this.state.checked
-            ? volume
+            ? volume || 1
             : 0;
 
         this.props.onSuccess({ volume, waterLevel });
@@ -70,7 +70,7 @@ export class AddBulbModal extends React.Component<AddBulbModalProps, AddBulbModa
                         </InputGroup.Prepend>
                         <InputGroup.Checkbox
                             aria-label="Checkbox for following text input"
-                            onClick={asd => this.handleCheckboxClick(asd)}
+                            onClick={evt => this.handleCheckboxClick(evt)}
                             />
                     </InputGroup>
                 </Modal.Body>
