@@ -55,6 +55,11 @@
         .empty {
             top: -7px;
             left: -15px;
+            border: solid 2px black;
+
+            i {
+                font-size: 15px;
+            }
         }
 
         .remove {
@@ -67,6 +72,10 @@
     .water-source {
         height: 100%;
         margin-right: 0;
+
+        .water-level-label {
+            font-size: 36px;
+        }
     }
 }
 

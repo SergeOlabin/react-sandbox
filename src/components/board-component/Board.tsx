@@ -70,19 +70,19 @@ export class BoardComponent extends React.Component<{}, BoardComponentState> {
         else this._transferLiquid(bulb);
     }
 
-    private _transferLiquid(bulb: Bulb | WaterSource) {
-        if (bulb instanceof WaterSource) return;
+    private _transferLiquid(destinationBulb: Bulb | WaterSource) {
+        if (destinationBulb instanceof WaterSource) return;
 
-        const destinationBulbIndex = this.state.bulbs.findIndex((elem: Bulb) => bulb === elem);
+        const destinationBulbIndex = this.state.bulbs.findIndex((elem: Bulb) => destinationBulb === elem);
         const newBulbs = [...this.state.bulbs];
-        const destinationBulb = newBulbs[destinationBulbIndex];
+        const destinationBulbNew = newBulbs[destinationBulbIndex];
 
         if (this.state.selectedBulb instanceof WaterSource) {
-            destinationBulb.waterLevel = destinationBulb.volume;
+            destinationBulbNew.waterLevel = destinationBulbNew.volume;
 
         } else {
             const selectedBulb = (this.state.selectedBulb as Bulb);
-            const possibleAmountOfLiquidToAdd = destinationBulb.volume - destinationBulb.waterLevel;
+            const possibleAmountOfLiquidToAdd = destinationBulbNew.volume - destinationBulbNew.waterLevel;
 
             const rest = max([
                 selectedBulb.waterLevel - possibleAmountOfLiquidToAdd,
@@ -94,7 +94,7 @@ export class BoardComponent extends React.Component<{}, BoardComponentState> {
                 .findIndex((elem: Bulb) => selectedBulb === elem);
             const selectedBulbNew = newBulbs[selectedBulbIndex];
 
-            destinationBulb.waterLevel = destinationBulb.waterLevel + addition;
+            destinationBulbNew.waterLevel = destinationBulbNew.waterLevel + addition;
             selectedBulbNew.waterLevel = rest;
         }
 

@@ -23,7 +23,9 @@ export class WaterSource extends React.Component<WaterSourceProps, WaterSourceSt
                 onClick={this.onClick.bind(this)}
                 className="water-source water-bulb">
                 {this.props.children}
-                <span className="water-level-label">DOHUYA</span>
+                <span className="water-level-label">
+                    <i className="fas fa-infinity"></i>
+                </span>
             </div>
         )
     }
