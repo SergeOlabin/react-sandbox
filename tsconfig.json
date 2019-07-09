@@ -21,8 +21,5 @@
   },
   "include": [
     "src"
-  ],
-  "rules": {
-    "semicolon": [true, "always"]
-  }
+  ]
 }

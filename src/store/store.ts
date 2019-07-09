@@ -6,7 +6,7 @@ import { combineReducers } from 'redux';
 import { transferLiquidReducer } from './transfer-liquids/reducers';
 
 export const rootReducer = combineReducers({
-    transferLiquids: transferLiquidReducer,
+  transferLiquids: transferLiquidReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
@@ -14,9 +14,8 @@ const middlewares = [thunkMiddleware];
 const middleWareEnhancer = applyMiddleware(...middlewares);
 
 export const store = createStore(
-    rootReducer,
-    // composeWithDevTools(middleWareEnhancer),
-    composeWithDevTools(middleWareEnhancer)
+  rootReducer,
+  // composeWithDevTools(middleWareEnhancer),
+  composeWithDevTools(middleWareEnhancer)
 );
-
 
