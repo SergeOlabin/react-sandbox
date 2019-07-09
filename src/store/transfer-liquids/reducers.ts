@@ -1,8 +1,10 @@
 import { TransferLiquidsState } from '../storeShapes';
-import * as actions from '../actions/transferLiquids.actions';
+import * as actionsTypes from './types';
+import { Bulb } from '../../components/board-component/Board';
 
 type transferLiquidActions = {
     type: string,
+    data: any,
 }
 const initialState: TransferLiquidsState = {
     bulbId: 2,
@@ -25,5 +27,15 @@ export function transferLiquidReducer(
     state = initialState,
     action: transferLiquidActions,
 ): TransferLiquidsState {
-    return state;
+    switch (action.type) {
+        case actionsTypes.TRANSFER_LIQUID:
+            return {
+                ...state,
+                bulbId: state.bulbId++,
+                bulbs: action.data,
+            }
+
+        default:
+            return state;
+    }
 }

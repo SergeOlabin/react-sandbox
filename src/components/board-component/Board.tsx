@@ -6,12 +6,19 @@ import './board.scss';
 import { Water } from '../water/Water';
 import { isEqual, max } from 'lodash';
 import { connect } from 'react-redux';
-import { AppState } from '../../store/reducers/rootReducer';
+import { AppState } from '../../store/store';
+import { transferLiquidAction } from '../../store/transfer-liquids/actions';
+import { TransferLiquidsState } from '../../store/storeShapes';
 
 interface BoardComponentState {
   bulbs: Bulb[],
   selectedBulb: Bulb | WaterSource | null,
   bulbId: number,
+}
+
+interface BoardComponentProps {
+  transferLiquidsState: TransferLiquidsState,
+  transferLiquidAction: typeof transferLiquidAction,
 }
 
 export interface Bulb {
@@ -20,7 +27,7 @@ export interface Bulb {
   waterLevel: number,
 }
 
-class BoardComponent extends React.Component<{}, BoardComponentState> {
+class BoardComponent extends React.Component<BoardComponentProps, BoardComponentState> {
   state: BoardComponentState = {
     bulbId: 2,
     bulbs: [
@@ -104,6 +111,7 @@ class BoardComponent extends React.Component<{}, BoardComponentState> {
       selectedBulbNew.waterLevel = rest;
     }
 
+    this.props.transferLiquidAction(newBulbs)
     this.setState({ bulbs: newBulbs });
     this.removeBulbSelection();
   }
@@ -149,4 +157,5 @@ const mapStateToProps = (state: AppState) => ({
 
 export default connect(
   mapStateToProps,
+  { transferLiquidAction },
 )(BoardComponent);
