@@ -1,21 +1,21 @@
 import React from 'react';
-import { Button, Modal, InputGroup, FormControl, Form } from 'react-bootstrap';
+import { Button, FormControl, InputGroup, Modal } from 'react-bootstrap';
 // import Form from 'react-bootstrap/FormGroup';
 
 interface AddBulbModalProps {
-  show: boolean,
-  onClose: Function,
-  onSuccess: Function,
+  show: boolean;
+  onClose: Function;
+  onSuccess: Function;
 }
 
 interface AddBulbModalState {
-  checked: boolean,
+  checked: boolean;
 }
 
 export class AddBulbModal extends React.Component<AddBulbModalProps, AddBulbModalState> {
-  volumeInput: React.RefObject<any>
+  public volumeInput: React.RefObject<any>
     = React.createRef();
-  state: AddBulbModalState;
+  public state: AddBulbModalState;
 
   constructor(props: AddBulbModalProps) {
     super(props);
@@ -25,16 +25,16 @@ export class AddBulbModal extends React.Component<AddBulbModalProps, AddBulbModa
     };
   }
 
-  handleCheckboxClick(evt: any) {
+  public handleCheckboxClick(evt: any) {
     this.setState({ checked: evt.target.checked });
   }
 
-  closeModal() {
+  public closeModal() {
     this.props.onClose();
     this.setState({ checked: false });
   }
 
-  onSuccess() {
+  public onSuccess() {
     const volume = +this.volumeInput.current.value;
 
     const waterLevel = this.state.checked
@@ -45,10 +45,10 @@ export class AddBulbModal extends React.Component<AddBulbModalProps, AddBulbModa
     this.closeModal();
   }
 
-  render() {
+  public render() {
     return (
       <Modal show={this.props.show} onHide={() => this.closeModal()}>
-        <Modal.Header closeButton>
+        <Modal.Header closeButton={true}>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
         <Modal.Body>
