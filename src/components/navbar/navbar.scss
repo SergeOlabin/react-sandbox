@@ -1,0 +1,14 @@
+.navbar {
+  background-color: #d6f3bc;
+  margin: 15px;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+
+  .route-link {
+    text-transform: capitalize;
+    margin-right: 10px;
+    font-size: 18px;
+  }
+}

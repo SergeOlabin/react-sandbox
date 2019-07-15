@@ -23,7 +23,7 @@ export interface Bulb {
   waterLevel: number;
 }
 
-class BoardComponent extends React.Component<BoardComponentProps> {
+class BoardComponentC extends React.Component<BoardComponentProps> {
   get bulbs(): Bulb[] {
     return this.props.transferLiquidsState.bulbs;
   }
@@ -103,7 +103,9 @@ const mapStateToProps = (state: AppState) => ({
   transferLiquidsState: state.transferLiquids,
 });
 
-export default connect(
+const BoardComponent = connect(
   mapStateToProps,
   { transferLiquid, removeBulbSelection, selectBulb },
-)(BoardComponent);
+)(BoardComponentC);
+
+export default BoardComponent;
