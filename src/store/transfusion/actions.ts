@@ -1,5 +1,5 @@
-import { Bulb } from '../../components/board-component/Board';
 import { WaterSource } from '../../components/water-source/WaterSource';
+import { Bulb } from '../../TS-types';
 import * as actionsTypes from './types';
 
 export function transferLiquid(

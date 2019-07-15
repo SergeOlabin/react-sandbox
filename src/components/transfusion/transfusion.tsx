@@ -3,8 +3,9 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../../store/store';
 import { TransferLiquidsState } from '../../store/storeShapes';
-import { removeBulbSelection, selectBulb, transferLiquid } from '../../store/transfer-liquids/actions';
-import BoardComponent, { Bulb } from '../board-component/Board';
+import { removeBulbSelection, selectBulb, transferLiquid } from '../../store/transfusion/actions';
+import { Bulb } from '../../TS-types';
+import BoardComponent from '../board-component/Board';
 import { WaterSource } from '../water-source/WaterSource';
 
 export interface ITransfusionComponentProps {

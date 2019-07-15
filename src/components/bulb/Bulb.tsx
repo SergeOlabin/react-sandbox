@@ -1,10 +1,10 @@
 import React from 'react';
-import { Bulb } from '../board-component/Board';
-import { Water } from '../water/Water';
-import { selectedBulbStyles } from '../board-component/SelectedBulbStyles.const';
-import './bulb.scss';
 import { connect } from 'react-redux';
-import { emptyBulb, removeBulb } from '../../store/transfer-liquids/actions';
+import { emptyBulb, removeBulb } from '../../store/transfusion/actions';
+import { Bulb } from '../../TS-types';
+import { selectedBulbStyles } from '../board-component/SelectedBulbStyles.const';
+import { Water } from '../water/Water';
+import './bulb.scss';
 
 interface BulbProps {
   value: Bulb,

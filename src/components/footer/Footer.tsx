@@ -1,9 +1,9 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
-import './footer.scss';
-import { AddBulbModal } from '../add-bulb-modal/AddBulbModal';
 import { connect } from 'react-redux';
-import { addBulb } from '../../store/transfer-liquids/actions';
+import { addBulb } from '../../store/transfusion/actions';
+import { AddBulbModal } from '../add-bulb-modal/AddBulbModal';
+import './footer.scss';
 
 interface FooterState {
   showAddBulbModal: boolean,

@@ -1,23 +1,21 @@
 import React from 'react';
+import { waterColorType } from '../../TS-types';
 
 interface WaterProps {
-    waterLevel: number | 'inf',
+	waterLevel: number | 'inf';
+	waterColor?: waterColorType;
 }
 
-interface WaterState {
+export class Water extends React.Component<WaterProps> {
+  public getWaterLevel() {
+    return this.props.waterLevel === 'inf'
+      ? '100%'
+      : `${this.props.waterLevel * 10}px`;
+  }
 
-}
-
-export class Water extends React.Component<WaterProps, WaterState> {
-    getWaterLevel() {
-        return this.props.waterLevel === 'inf'
-            ? '100%'
-            : `${this.props.waterLevel * 10}px`;
-    }
-
-    render() {
-        return (
-            <div style={{ height: this.getWaterLevel() }} className="water"></div>
-        )
-    }
+  public render() {
+    return (
+      <div style={{ height: this.getWaterLevel() }} className="water"></div>
+    );
+  }
 }

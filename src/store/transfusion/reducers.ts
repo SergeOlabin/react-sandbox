@@ -1,10 +1,11 @@
-import { Bulb } from '../../components/board-component/Board';
+import { Bulb } from '../../TS-types';
 import { TransferLiquidsState } from '../storeShapes';
 import * as actionsTypes from './types';
 
+// tslint:disable-next-line: class-name
 interface transferLiquidActions {
-  type: string,
-  data?: any,
+  type: string;
+  data?: any;
 };
 const initialState: TransferLiquidsState = {
   bulbId: 2,

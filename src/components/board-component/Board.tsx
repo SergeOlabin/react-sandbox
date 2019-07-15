@@ -1,6 +1,7 @@
-import { isEqual, max } from 'lodash';
+import { isEqual } from 'lodash';
 import React from 'react';
 import { TransferLiquidsState } from '../../store/storeShapes';
+import { Bulb } from '../../TS-types';
 import BulbComponent from '../bulb/Bulb';
 import FooterComponent from '../footer/Footer';
 import { WaterSource } from '../water-source/WaterSource';
@@ -14,12 +15,6 @@ interface BoardComponentProps {
   selectBulb: Function;
   bulbs: Bulb[];
   selectedBulb: Bulb | WaterSource | null;
-}
-
-export interface Bulb {
-  id: number;
-  volume: number;
-  waterLevel: number;
 }
 
 export default class BoardComponent extends React.Component<BoardComponentProps> {
@@ -53,38 +48,5 @@ export default class BoardComponent extends React.Component<BoardComponentProps>
         <FooterComponent />
       </div>
     );
-  }
-
-  private _transferLiquid(destinationBulb: Bulb | WaterSource) {
-    if (destinationBulb instanceof WaterSource) return;
-
-    const destinationBulbIndex = this.props.bulbs.findIndex((elem: Bulb) => destinationBulb === elem);
-    const newBulbs = [...this.props.bulbs];
-    const destinationBulbNew = newBulbs[destinationBulbIndex];
-
-    if (this.props.selectedBulb instanceof WaterSource) {
-      destinationBulbNew.waterLevel = destinationBulbNew.volume;
-
-    } else {
-      const selectedBulb = (this.props.selectedBulb as Bulb);
-      const possibleAmountOfLiquidToAdd = destinationBulbNew.volume - destinationBulbNew.waterLevel;
-
-      const rest = max([
-        selectedBulb.waterLevel - possibleAmountOfLiquidToAdd,
-        0,
-      ]) as number;
-      const addition = selectedBulb.waterLevel - rest;
-
-      const selectedBulbIndex = this.props.bulbs
-        .findIndex((elem: Bulb) => selectedBulb === elem);
-      const selectedBulbNew = newBulbs[selectedBulbIndex];
-
-      destinationBulbNew.waterLevel = destinationBulbNew.waterLevel + addition;
-      selectedBulbNew.waterLevel = rest;
-    }
-
-    this.props.transferLiquid(newBulbs);
-    this.setState({ bulbs: newBulbs });
-    this.props.removeBulbSelection();
   }
 }
