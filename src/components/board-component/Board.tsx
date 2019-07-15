@@ -1,26 +1,26 @@
-import React, { RefObject } from 'react';
+import { isEqual, max } from 'lodash';
+import React from 'react';
+import { connect } from 'react-redux';
+import { AppState } from '../../store/store';
+import { TransferLiquidsState } from '../../store/storeShapes';
+import { removeBulbSelection, selectBulb, transferLiquid } from '../../store/transfer-liquids/actions';
 import BulbComponent from '../bulb/Bulb';
 import FooterComponent from '../footer/Footer';
 import { WaterSource } from '../water-source/WaterSource';
-import './board.scss';
 import { Water } from '../water/Water';
-import { isEqual, max } from 'lodash';
-import { connect } from 'react-redux';
-import { AppState } from '../../store/store';
-import { transferLiquid, removeBulbSelection, selectBulb, addBulb } from '../../store/transfer-liquids/actions';
-import { TransferLiquidsState } from '../../store/storeShapes';
+import './board.scss';
 
 interface BoardComponentProps {
-  transferLiquidsState: TransferLiquidsState,
-  transferLiquid: typeof transferLiquid,
-  removeBulbSelection: typeof removeBulbSelection,
-  selectBulb: typeof selectBulb,
+  transferLiquidsState: TransferLiquidsState;
+  transferLiquid: typeof transferLiquid;
+  removeBulbSelection: typeof removeBulbSelection;
+  selectBulb: typeof selectBulb;
 }
 
 export interface Bulb {
-  id: number,
-  volume: number,
-  waterLevel: number,
+  id: number;
+  volume: number;
+  waterLevel: number;
 }
 
 class BoardComponent extends React.Component<BoardComponentProps> {
@@ -33,10 +33,36 @@ class BoardComponent extends React.Component<BoardComponentProps> {
     return this.props.transferLiquidsState.selectedBulb;
   }
 
-  bubleClick(bulb: Bulb | WaterSource) {
+  public bubleClick(bulb: Bulb | WaterSource) {
     if (!this.selectedBulb) this.props.selectBulb(bulb);
     else if (isEqual(bulb, this.selectedBulb)) this.props.removeBulbSelection();
     else this._transferLiquid(bulb);
+  }
+
+  public render() {
+    const bulbs = this.bulbs.map((bulb: Bulb) =>
+      <BulbComponent
+        key={bulb.id}
+        value={bulb}
+        selected={isEqual(this.selectedBulb, bulb)}
+        onClick={this.bubleClick.bind(this)}
+      />,
+    );
+
+    return (
+      <div className="board" onClick={this.props.removeBulbSelection.bind(this)}>
+        <div className="bulbs-container">
+          <div className="bulbs">{bulbs}</div>
+          <WaterSource
+            selected={this.selectedBulb instanceof WaterSource}
+            onClick={this.bubleClick.bind(this)}
+          ><Water waterLevel='inf'/>
+          </WaterSource>
+        </div>
+
+        <FooterComponent />
+      </div>
+    );
   }
 
   private _transferLiquid(destinationBulb: Bulb | WaterSource) {
@@ -70,32 +96,6 @@ class BoardComponent extends React.Component<BoardComponentProps> {
     this.props.transferLiquid(newBulbs);
     this.setState({ bulbs: newBulbs });
     this.props.removeBulbSelection();
-  }
-
-  render() {
-    const bulbs = this.bulbs.map((bulb: Bulb) =>
-      <BulbComponent
-        key={bulb.id}
-        value={bulb}
-        selected={isEqual(this.selectedBulb, bulb)}
-        onClick={this.bubleClick.bind(this)}
-      />
-    );
-
-    return (
-      <div className="board" onClick={this.props.removeBulbSelection.bind(this)}>
-        <div className="bulbs-container">
-          <div className="bulbs">{bulbs}</div>
-          <WaterSource
-            selected={this.selectedBulb instanceof WaterSource}
-            onClick={this.bubleClick.bind(this)}
-          ><Water waterLevel='inf'></Water>
-          </WaterSource>
-        </div>
-
-        <FooterComponent />
-      </div>
-    )
   }
 }
 

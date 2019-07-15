@@ -22,6 +22,10 @@
     "semicolon": [
       true,
       "always"
-    ]
+    ],
+    "jsx-no-lambda": [false, "always"],
+    "jsx-no-bind": [false, "always"],
+    "interface-name": [false, "always"],
+    "curly":[true, "ignore-same-line"]
   }
 }

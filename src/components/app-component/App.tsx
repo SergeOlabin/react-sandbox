@@ -1,6 +1,6 @@
 import React from 'react';
-import './App.scss';
 import BoardComponent from '../board-component/Board';
+import './App.scss';
 
 const App: React.FC = () => {
   return (
