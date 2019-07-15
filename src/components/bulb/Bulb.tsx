@@ -7,39 +7,39 @@ import { Water } from '../water/Water';
 import './bulb.scss';
 
 interface BulbProps {
-  value: Bulb,
-  onClick: Function,
-  selected: boolean,
-  emptyBulb: ((bulb: Bulb) => void),
-  removeBulb: ((bulb: Bulb) => void),
+  value: Bulb;
+  onClick: Function;
+  selected: boolean;
+  emptyBulb: ((bulb: Bulb) => void);
+  removeBulb: ((bulb: Bulb) => void);
 }
 
 class BulbComponent extends React.Component<BulbProps> {
-  getSetyles() {
+  public getSetyles() {
     return {
       height: `${this.props.value.volume * 10}px`,
       boxShadow: this.props.selected
         ? selectedBulbStyles.boxShadow
         : 'none',
-    }
+    };
   }
 
-  onClick(evt: React.MouseEvent<any>) {
+  public onClick(evt: React.MouseEvent<any>) {
     evt.stopPropagation();
-    this.props.onClick(this.props.value)
+    this.props.onClick(this.props.value);
   }
 
-  emptyBulb(evt: React.MouseEvent<any>) {
+  public emptyBulb(evt: React.MouseEvent<any>) {
     evt.stopPropagation();
     this.props.emptyBulb(this.props.value);
   }
 
-  removeBulb(evt: React.MouseEvent<any>) {
+  public removeBulb(evt: React.MouseEvent<any>) {
     evt.stopPropagation();
     this.props.removeBulb(this.props.value);
   }
 
-  render() {
+  public render() {
     return (
       <div
         onClick={this.onClick.bind(this)}
@@ -59,7 +59,7 @@ class BulbComponent extends React.Component<BulbProps> {
           onClick={this.removeBulb.bind(this)}
         ><i className="far fa-times-circle"></i></span>
       </div>
-    )
+    );
   }
 }
 

@@ -1,9 +1,11 @@
 import * as React from 'react';
+import { connect } from 'react-redux';
+import { transferLiquid } from '../../store/transfusion/actions';
 
 export interface IColorMixerProps {
 }
 
-export default class ColorMixer extends React.Component<IColorMixerProps> {
+class ColorMixerC extends React.Component<IColorMixerProps> {
   public render() {
     return (
       <div>
@@ -12,3 +14,9 @@ export default class ColorMixer extends React.Component<IColorMixerProps> {
     );
   }
 }
+
+const ColorMixer = connect(
+  null,
+  { transferLiquid },
+)(ColorMixerC);
+export default ColorMixer;

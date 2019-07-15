@@ -3,9 +3,10 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { AppState } from '../../store/store';
 import { TransferLiquidsState } from '../../store/storeShapes';
-import { removeBulbSelection, selectBulb, transferLiquid } from '../../store/transfusion/actions';
-import { Bulb } from '../../TS-types';
+import { addBulb, removeBulbSelection, selectBulb, transferLiquid } from '../../store/transfusion/actions';
+import { Bulb, waterColorType } from '../../TS-types';
 import BoardComponent from '../board-component/Board';
+import FooterComponent from '../footer/Footer';
 import { WaterSource } from '../water-source/WaterSource';
 
 export interface ITransfusionComponentProps {
@@ -13,11 +14,14 @@ export interface ITransfusionComponentProps {
   transferLiquid: typeof transferLiquid;
   removeBulbSelection: typeof removeBulbSelection;
   selectBulb: typeof selectBulb;
+  addBulb: typeof addBulb;
 }
 
 class TransfusionComponentC extends React.Component<
   ITransfusionComponentProps
 > {
+  public waterSourceConfig = [{ waterColor: 'b' as waterColorType }];
+
   get bulbs(): Bulb[] {
     return this.props.transferLiquidsState.bulbs;
   }
@@ -64,14 +68,17 @@ class TransfusionComponentC extends React.Component<
 
   public render() {
     return (
-      <BoardComponent
-        transferLiquidsState={this.props.transferLiquidsState}
-        transferLiquid={this.transferLiquid.bind(this)}
-        removeBulbSelection={this.props.removeBulbSelection.bind(this)}
-        selectBulb={this.props.selectBulb}
-        bulbs={this.bulbs}
-        selectedBulb={this.selectedBulb}
-      ></BoardComponent>
+      <div>
+        <BoardComponent
+          transferLiquid={this.transferLiquid.bind(this)}
+          removeBulbSelection={this.props.removeBulbSelection.bind(this)}
+          selectBulb={this.props.selectBulb}
+          bulbs={this.bulbs}
+          selectedBulb={this.selectedBulb}
+          waterSourceConfig={this.waterSourceConfig}
+        ></BoardComponent>
+        <FooterComponent addBulb={this.props.addBulb} />
+      </div>
     );
   }
 }
@@ -80,9 +87,9 @@ const mapStateToProps = (state: AppState) => ({
   transferLiquidsState: state.transferLiquids,
 });
 
- const TransfusionComponent = connect(
+const TransfusionComponent = connect(
   mapStateToProps,
-  { transferLiquid, removeBulbSelection, selectBulb },
+  { transferLiquid, removeBulbSelection, selectBulb, addBulb },
 )(TransfusionComponentC);
 export default TransfusionComponent;
 

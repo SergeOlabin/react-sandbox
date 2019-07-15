@@ -1,20 +1,18 @@
-import { isEqual } from 'lodash';
+import { isEqual, map } from 'lodash';
 import React from 'react';
-import { TransferLiquidsState } from '../../store/storeShapes';
-import { Bulb } from '../../TS-types';
+import { } from '../../store/storeShapes';
+import { Bulb, waterColorType } from '../../TS-types';
 import BulbComponent from '../bulb/Bulb';
-import FooterComponent from '../footer/Footer';
 import { WaterSource } from '../water-source/WaterSource';
-import { Water } from '../water/Water';
 import './board.scss';
 
 interface BoardComponentProps {
-  transferLiquidsState: TransferLiquidsState;
   transferLiquid: Function;
   removeBulbSelection: Function;
   selectBulb: Function;
   bulbs: Bulb[];
   selectedBulb: Bulb | WaterSource | null;
+  waterSourceConfig: Array<{ waterColor: waterColorType }>;
 }
 
 export default class BoardComponent extends React.Component<BoardComponentProps> {
@@ -34,18 +32,27 @@ export default class BoardComponent extends React.Component<BoardComponentProps>
       />,
     );
 
+    const WaterSources = map(this.props.waterSourceConfig, (value, key) => {
     return (
-      <div className="board" onClick={this.props.removeBulbSelection.bind(this)}>
+        <WaterSource
+          // !!! Arr index is used as key !!! ALWAYS STATIC
+          key={key}
+          selected={this.props.selectedBulb instanceof WaterSource}
+          onClick={this.bubleClick.bind(this)}
+          waterColor={value.waterColor}
+        ></WaterSource>
+      );
+    });
+
+    return (
+      <div
+        className="board"
+        onClick={this.props.removeBulbSelection.bind(this)}
+      >
         <div className="bulbs-container">
           <div className="bulbs">{bulbs}</div>
-          <WaterSource
-            selected={this.props.selectedBulb instanceof WaterSource}
-            onClick={this.bubleClick.bind(this)}
-            ><Water waterLevel='inf'/>
-          </WaterSource>
+          {WaterSources}
         </div>
-
-        <FooterComponent />
       </div>
     );
   }

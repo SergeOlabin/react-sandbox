@@ -7,6 +7,16 @@ interface WaterProps {
 }
 
 export class Water extends React.Component<WaterProps> {
+  get backgroundColor() {
+    switch (this.props.waterColor) {
+      case ('b'): return 'aqua';
+      case ('g'): return 'green';
+      case ('r'): return 'red';
+
+      default: return 'aqua';
+    }
+  }
+
   public getWaterLevel() {
     return this.props.waterLevel === 'inf'
       ? '100%'
@@ -15,7 +25,13 @@ export class Water extends React.Component<WaterProps> {
 
   public render() {
     return (
-      <div style={{ height: this.getWaterLevel() }} className="water"></div>
+      <div
+        style={{
+          height: this.getWaterLevel(),
+          backgroundColor: this.backgroundColor,
+        }}
+        className="water"
+      ></div>
     );
   }
 }

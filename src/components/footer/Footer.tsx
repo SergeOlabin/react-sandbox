@@ -6,23 +6,23 @@ import { AddBulbModal } from '../add-bulb-modal/AddBulbModal';
 import './footer.scss';
 
 interface FooterState {
-  showAddBulbModal: boolean,
+  showAddBulbModal: boolean;
 }
 
 interface FooterProps {
-  addBulb: typeof addBulb,
+  addBulb: typeof addBulb;
 }
 
-class FooterComponent extends React.Component<FooterProps, FooterState> {
-  state: FooterState = {
+class FooterComponentC extends React.Component<FooterProps, FooterState> {
+  public state: FooterState = {
     showAddBulbModal: false,
-  }
+  };
 
-  addBubl({ volume, waterLevel = 0 }: { volume: number, waterLevel: number }) {
+  public addBubl({ volume, waterLevel = 0 }: { volume: number, waterLevel: number }) {
     this.props.addBulb({ volume, waterLevel });
   }
 
-  render() {
+  public render() {
     return (
       <div className="footer">
         <Button
@@ -38,11 +38,13 @@ class FooterComponent extends React.Component<FooterProps, FooterState> {
           onClose={() => this.setState({ showAddBulbModal: false })}
         />
       </div>
-    )
+    );
   }
 }
 
-export default connect(
+const FooterComponent = connect(
   null,
-  { addBulb },
-)(FooterComponent);
+  // { addBulb },
+)(FooterComponentC);
+
+export default FooterComponent;

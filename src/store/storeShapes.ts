@@ -6,7 +6,7 @@ export interface StoreState {
 }
 
 export interface TransferLiquidsState {
-    bulbs: Bulb[];
-    selectedBulb: Bulb | WaterSource | null;
-    bulbId: number;
+  bulbs: Bulb[];
+  selectedBulb: Bulb | WaterSource | null;
+  bulbId: number;
 }
