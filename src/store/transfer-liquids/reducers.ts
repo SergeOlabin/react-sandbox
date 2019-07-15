@@ -1,11 +1,11 @@
+import { Bulb } from '../../components/board-component/Board';
 import { TransferLiquidsState } from '../storeShapes';
 import * as actionsTypes from './types';
-import { Bulb } from '../../components/board-component/Board';
 
-type transferLiquidActions = {
+interface transferLiquidActions {
   type: string,
   data?: any,
-}
+};
 const initialState: TransferLiquidsState = {
   bulbId: 2,
   bulbs: [
@@ -18,7 +18,7 @@ const initialState: TransferLiquidsState = {
       id: 1,
       volume: 10,
       waterLevel: 2,
-    }
+    },
   ],
   selectedBulb: null,
 };
@@ -32,7 +32,7 @@ export function transferLiquidReducer(
       return {
         ...state,
         bulbs: action.data,
-      }
+      };
 
     case actionsTypes.EMPTY_BULB:
       return (() => {
@@ -43,7 +43,7 @@ export function transferLiquidReducer(
         return {
           ...state,
           bulbs,
-        }
+        };
       })();
 
     case actionsTypes.REMOVE_BULB:
@@ -56,20 +56,20 @@ export function transferLiquidReducer(
         return {
           ...state,
           bulbs,
-        }
+        };
       })();
 
     case actionsTypes.SELECT_BULB:
       return {
         ...state,
         selectedBulb: action.data,
-      }
+      };
 
     case actionsTypes.REMOVE_BULB_SELECTION:
       return {
         ...state,
         selectedBulb: null,
-      }
+      };
 
     case actionsTypes.ADD_BULB:
       return (() => {
@@ -87,7 +87,7 @@ export function transferLiquidReducer(
         return {
           ...state,
           bulbs,
-        }
+        };
       })();
 
     default:

@@ -1,9 +1,6 @@
 import { isEqual, max } from 'lodash';
 import React from 'react';
-import { connect } from 'react-redux';
-import { AppState } from '../../store/store';
 import { TransferLiquidsState } from '../../store/storeShapes';
-import { removeBulbSelection, selectBulb, transferLiquid } from '../../store/transfer-liquids/actions';
 import BulbComponent from '../bulb/Bulb';
 import FooterComponent from '../footer/Footer';
 import { WaterSource } from '../water-source/WaterSource';
@@ -12,9 +9,11 @@ import './board.scss';
 
 interface BoardComponentProps {
   transferLiquidsState: TransferLiquidsState;
-  transferLiquid: typeof transferLiquid;
-  removeBulbSelection: typeof removeBulbSelection;
-  selectBulb: typeof selectBulb;
+  transferLiquid: Function;
+  removeBulbSelection: Function;
+  selectBulb: Function;
+  bulbs: Bulb[];
+  selectedBulb: Bulb | WaterSource | null;
 }
 
 export interface Bulb {
@@ -23,28 +22,19 @@ export interface Bulb {
   waterLevel: number;
 }
 
-class BoardComponentC extends React.Component<BoardComponentProps> {
-  get bulbs(): Bulb[] {
-    return this.props.transferLiquidsState.bulbs;
-  }
-
-  // TODO: get type from storeShapes
-  get selectedBulb(): Bulb | WaterSource | null {
-    return this.props.transferLiquidsState.selectedBulb;
-  }
-
+export default class BoardComponent extends React.Component<BoardComponentProps> {
   public bubleClick(bulb: Bulb | WaterSource) {
-    if (!this.selectedBulb) this.props.selectBulb(bulb);
-    else if (isEqual(bulb, this.selectedBulb)) this.props.removeBulbSelection();
-    else this._transferLiquid(bulb);
+    if (!this.props.selectedBulb) this.props.selectBulb(bulb);
+    else if (isEqual(bulb, this.props.selectedBulb)) this.props.removeBulbSelection();
+    else this.props.transferLiquid(bulb);
   }
 
   public render() {
-    const bulbs = this.bulbs.map((bulb: Bulb) =>
+    const bulbs = this.props.bulbs.map((bulb: Bulb) =>
       <BulbComponent
         key={bulb.id}
         value={bulb}
-        selected={isEqual(this.selectedBulb, bulb)}
+        selected={isEqual(this.props.selectedBulb, bulb)}
         onClick={this.bubleClick.bind(this)}
       />,
     );
@@ -54,9 +44,9 @@ class BoardComponentC extends React.Component<BoardComponentProps> {
         <div className="bulbs-container">
           <div className="bulbs">{bulbs}</div>
           <WaterSource
-            selected={this.selectedBulb instanceof WaterSource}
+            selected={this.props.selectedBulb instanceof WaterSource}
             onClick={this.bubleClick.bind(this)}
-          ><Water waterLevel='inf'/>
+            ><Water waterLevel='inf'/>
           </WaterSource>
         </div>
 
@@ -68,15 +58,15 @@ class BoardComponentC extends React.Component<BoardComponentProps> {
   private _transferLiquid(destinationBulb: Bulb | WaterSource) {
     if (destinationBulb instanceof WaterSource) return;
 
-    const destinationBulbIndex = this.bulbs.findIndex((elem: Bulb) => destinationBulb === elem);
-    const newBulbs = [...this.bulbs];
+    const destinationBulbIndex = this.props.bulbs.findIndex((elem: Bulb) => destinationBulb === elem);
+    const newBulbs = [...this.props.bulbs];
     const destinationBulbNew = newBulbs[destinationBulbIndex];
 
-    if (this.selectedBulb instanceof WaterSource) {
+    if (this.props.selectedBulb instanceof WaterSource) {
       destinationBulbNew.waterLevel = destinationBulbNew.volume;
 
     } else {
-      const selectedBulb = (this.selectedBulb as Bulb);
+      const selectedBulb = (this.props.selectedBulb as Bulb);
       const possibleAmountOfLiquidToAdd = destinationBulbNew.volume - destinationBulbNew.waterLevel;
 
       const rest = max([
@@ -85,7 +75,7 @@ class BoardComponentC extends React.Component<BoardComponentProps> {
       ]) as number;
       const addition = selectedBulb.waterLevel - rest;
 
-      const selectedBulbIndex = this.bulbs
+      const selectedBulbIndex = this.props.bulbs
         .findIndex((elem: Bulb) => selectedBulb === elem);
       const selectedBulbNew = newBulbs[selectedBulbIndex];
 
@@ -98,14 +88,3 @@ class BoardComponentC extends React.Component<BoardComponentProps> {
     this.props.removeBulbSelection();
   }
 }
-
-const mapStateToProps = (state: AppState) => ({
-  transferLiquidsState: state.transferLiquids,
-});
-
-const BoardComponent = connect(
-  mapStateToProps,
-  { transferLiquid, removeBulbSelection, selectBulb },
-)(BoardComponentC);
-
-export default BoardComponent;

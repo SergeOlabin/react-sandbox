@@ -1,6 +1,6 @@
 import { Bulb } from '../../components/board-component/Board';
-import * as actionsTypes from './types';
 import { WaterSource } from '../../components/water-source/WaterSource';
+import * as actionsTypes from './types';
 
 export function transferLiquid(
   bulbs: Bulb[],
@@ -8,7 +8,7 @@ export function transferLiquid(
   return {
     type: actionsTypes.TRANSFER_LIQUID,
     data: bulbs,
-  }
+  };
 }
 
 export const emptyBulb = (bulb: Bulb) => ({

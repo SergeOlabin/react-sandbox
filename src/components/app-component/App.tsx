@@ -1,14 +1,14 @@
 import { map } from 'lodash';
 import React from 'react';
 import { Redirect, Route } from 'react-router';
-import BoardComponent from '../board-component/Board';
 import ColorMixer from '../color-mixer/color-mixer';
 import { NavbarComponent } from '../navbar/navbar';
+import TransfusionComponent from '../transfusion/transfusion';
 import './App.scss';
 
 const App: React.FC = () => {
   const routerConfig = {
-    pelelivayka: BoardComponent,
+    pelelivayka: TransfusionComponent,
     'color-mixer': ColorMixer,
   };
   const routes = Object.keys(routerConfig);

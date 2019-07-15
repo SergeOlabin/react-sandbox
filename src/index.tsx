@@ -7,6 +7,7 @@ import './index.scss';
 import * as serviceWorker from './serviceWorker';
 import { store } from './store/store';
 
+// props may be removed, left just to keep the code structure for future reuse :)
 const Root: React.FC<{
   store: typeof store;
 }> = props => (
@@ -18,13 +19,6 @@ const Root: React.FC<{
 );
 
 ReactDOM.render(<Root store={store} />, document.getElementById('root'));
-
-// ReactDOM.render(
-//     (<Provider store={store}>
-//         <App />
-//     </Provider>),
-//     document.getElementById('root'),
-// );
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
