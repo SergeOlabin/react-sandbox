@@ -1,10 +1,8 @@
 import { WaterSource } from '../../components/water-source/WaterSource';
-import { Bulb } from '../../TS-types';
+import { Bulb, waterColorType } from '../../TS-types';
 import * as actionsTypes from './types';
 
-export function transferLiquid(
-  bulbs: Bulb[],
-) {
+export function transferLiquid(bulbs: Bulb[]) {
   return {
     type: actionsTypes.TRANSFER_LIQUID,
     data: bulbs,
@@ -30,10 +28,19 @@ export const removeBulbSelection = () => ({
   type: actionsTypes.REMOVE_BULB_SELECTION,
 });
 
-export const addBulb = ({ volume, waterLevel = 0 }: { volume: number, waterLevel: number }) => ({
+export const addBulb = ({
+  volume,
+  waterLevel = 0,
+  waterColor = 'b',
+}: {
+  volume: number;
+  waterLevel: number;
+  waterColor?: waterColorType;
+}) => ({
   type: actionsTypes.ADD_BULB,
   data: {
     volume,
     waterLevel,
+    waterColor,
   },
 });

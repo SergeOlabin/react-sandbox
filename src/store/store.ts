@@ -1,12 +1,15 @@
 import { applyMiddleware, combineReducers, createStore } from 'redux';
-import { composeWithDevTools } from "redux-devtools-extension";
-import thunkMiddleware from "redux-thunk";
+import { composeWithDevTools } from 'redux-devtools-extension';
+import thunkMiddleware from 'redux-thunk';
 // import { colorMixerReducer } from './color-mixer/reducers';
-import { transferLiquidReducer } from './transfusion/reducers';
+import {
+  colorMixerReducer,
+  transferLiquidReducer,
+} from './transfusion/reducers';
 
 export const rootReducer = combineReducers({
   transferLiquids: transferLiquidReducer,
-  colorMiser: transferLiquidReducer,
+  colorMixer: colorMixerReducer,
 });
 
 export type AppState = ReturnType<typeof rootReducer>;
@@ -19,4 +22,3 @@ export const store = createStore(
   // composeWithDevTools(middleWareEnhancer),
   composeWithDevTools(middleWareEnhancer),
 );
-

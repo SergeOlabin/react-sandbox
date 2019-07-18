@@ -1,12 +1,7 @@
 import { Bulb } from '../../TS-types';
-import { TransferLiquidsState } from '../storeShapes';
+import { transferLiquidActions, TransferLiquidsState } from '../storeShapes';
 import * as actionsTypes from './types';
 
-// tslint:disable-next-line: class-name
-interface transferLiquidActions {
-  type: string;
-  data?: any;
-};
 const initialState: TransferLiquidsState = {
   bulbId: 2,
   bulbs: [
@@ -25,6 +20,24 @@ const initialState: TransferLiquidsState = {
 };
 
 export function transferLiquidReducer(
+  state = initialState,
+  action: transferLiquidActions,
+): TransferLiquidsState {
+  return action.screen === 'transf'
+    ? commonLiquidsReducer(state, action)
+    : state;
+}
+
+export function colorMixerReducer(
+  state = initialState,
+  action: transferLiquidActions,
+): TransferLiquidsState {
+  return action.screen === 'mixer'
+    ? commonLiquidsReducer(state, action)
+    : state;
+}
+
+export function commonLiquidsReducer(
   state = initialState,
   action: transferLiquidActions,
 ): TransferLiquidsState {
@@ -74,6 +87,8 @@ export function transferLiquidReducer(
 
     case actionsTypes.ADD_BULB:
       return (() => {
+        console.log(state);
+
         const id = state.bulbId++;
 
         const { volume, waterLevel } = action.data;
