@@ -3,7 +3,6 @@ import { createBrowserHistory } from 'history';
 import { applyMiddleware, combineReducers, createStore } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import thunkMiddleware from 'redux-thunk';
-// import { colorMixerReducer } from './color-mixer/reducers';
 import {
   colorMixerReducer,
   transferLiquidReducer,

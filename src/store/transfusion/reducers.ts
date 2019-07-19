@@ -87,8 +87,6 @@ export function commonLiquidsReducer(
 
     case actionsTypes.ADD_BULB:
       return (() => {
-        console.log(state);
-
         const id = state.bulbId++;
 
         const { volume, waterLevel } = action.data;

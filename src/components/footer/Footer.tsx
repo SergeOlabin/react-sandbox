@@ -1,7 +1,6 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { addBulb } from '../../store/transfusion/actions';
 import { AddBulbModal } from '../add-bulb-modal/AddBulbModal';
 import './footer.scss';
 
@@ -10,7 +9,7 @@ interface FooterState {
 }
 
 interface FooterProps {
-  addBulb: typeof addBulb;
+  addBulb: Function;
 }
 
 class FooterComponentC extends React.Component<FooterProps, FooterState> {
@@ -18,7 +17,13 @@ class FooterComponentC extends React.Component<FooterProps, FooterState> {
     showAddBulbModal: false,
   };
 
-  public addBubl({ volume, waterLevel = 0 }: { volume: number, waterLevel: number }) {
+  public addBubl({
+    volume,
+    waterLevel = 0,
+  }: {
+    volume: number;
+    waterLevel: number;
+  }) {
     this.props.addBulb({ volume, waterLevel });
   }
 
@@ -29,8 +34,9 @@ class FooterComponentC extends React.Component<FooterProps, FooterState> {
           onClick={() => this.setState({ showAddBulbModal: true })}
           variant="light"
           className="add-bulb-button"
-        // disabled={true}
-        ><i className="fas fa-plus-circle"></i>
+          // disabled={true}
+        >
+          <i className="fas fa-plus-circle"></i>
         </Button>
         <AddBulbModal
           show={this.state.showAddBulbModal}

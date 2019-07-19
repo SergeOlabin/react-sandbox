@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { emptyBulb, removeBulb } from '../../store/transfusion/actions';
+import { actionOnBulb } from '../../store/transfusion/actions';
 import { Bulb } from '../../TS-types';
 import { selectedBulbStyles } from '../board-component/SelectedBulbStyles.const';
 import { Water } from '../water/Water';
@@ -10,17 +10,14 @@ interface BulbProps {
   value: Bulb;
   onClick: Function;
   selected: boolean;
-  emptyBulb: ((bulb: Bulb) => void);
-  removeBulb: ((bulb: Bulb) => void);
+  actionOnBulb: typeof dispatchesAdaptedToScreen.actionOnBulb;
 }
 
 class BulbComponent extends React.Component<BulbProps> {
   public getSetyles() {
     return {
       height: `${this.props.value.volume * 10}px`,
-      boxShadow: this.props.selected
-        ? selectedBulbStyles.boxShadow
-        : 'none',
+      boxShadow: this.props.selected ? selectedBulbStyles.boxShadow : 'none',
     };
   }
 
@@ -31,12 +28,17 @@ class BulbComponent extends React.Component<BulbProps> {
 
   public emptyBulb(evt: React.MouseEvent<any>) {
     evt.stopPropagation();
-    this.props.emptyBulb(this.props.value);
+    // this.props.actionOnBulb({
+    //   this.props.value,
+    // });
   }
 
   public removeBulb(evt: React.MouseEvent<any>) {
     evt.stopPropagation();
-    this.props.removeBulb(this.props.value);
+    this.props.actionOnBulb({
+      type: 'REMOVE_BULB',
+      bulb: this.props.value,
+    });
   }
 
   public render() {
@@ -44,26 +46,36 @@ class BulbComponent extends React.Component<BulbProps> {
       <div
         onClick={this.onClick.bind(this)}
         className="water-bulb"
-        style={this.getSetyles()} >
+        style={this.getSetyles()}
+      >
         <Water waterLevel={this.props.value.waterLevel}></Water>
         <span className="water-level-label">
           {this.props.value.waterLevel} / {this.props.value.volume}
         </span>
-        <span
-          onClick={this.emptyBulb.bind(this)}
-          className="empty corner-icon"
-        ><i className="fab fa-bitbucket"></i>
+        <span onClick={this.emptyBulb.bind(this)} className="empty corner-icon">
+          <i className="fab fa-bitbucket"></i>
         </span>
         <span
           className="remove corner-icon"
           onClick={this.removeBulb.bind(this)}
-        ><i className="far fa-times-circle"></i></span>
+        >
+          <i className="far fa-times-circle"></i>
+        </span>
       </div>
     );
   }
 }
 
+const dispatchesAdaptedToScreen = {
+  actionOnBulb: (opts: Omit<Parameters<typeof actionOnBulb>[0], 'screen'>) => {
+    actionOnBulb({
+      ...opts,
+      screen: 'transf',
+    });
+  },
+};
+
 export default connect(
   null,
-  { emptyBulb, removeBulb },
+  dispatchesAdaptedToScreen,
 )(BulbComponent);
