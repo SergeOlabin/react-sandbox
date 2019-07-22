@@ -6,6 +6,7 @@ import {
   transferLiquidsRouteName,
 } from '../../store/router-config';
 import ColorMixer from '../color-mixer/color-mixer';
+import FooterComponent from '../footer/Footer';
 import { NavbarComponent } from '../navbar/navbar';
 import TransfusionComponent from '../transfusion/transfusion';
 import './App.scss';
@@ -26,6 +27,7 @@ const App: React.FC = () => {
 
       {routeTemplateData}
       <Redirect from="/" to={routes[0]} />
+      <FooterComponent />
     </div>
   );
 };

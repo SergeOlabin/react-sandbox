@@ -8,9 +8,8 @@ import {
   removeBulbSelection,
   transferLiquid,
 } from '../../store/transfusion/actions';
-import { Bulb, waterColorType } from '../../TS-types';
+import { Bulb, IWaterSource, selectedBulbType } from '../../TS-types';
 import BoardComponent from '../board-component/Board';
-import FooterComponent from '../footer/Footer';
 import { WaterSource } from '../water-source/WaterSource';
 
 export interface ITransfusionComponentProps {
@@ -23,14 +22,13 @@ export interface ITransfusionComponentProps {
 class TransfusionComponentC extends React.Component<
   ITransfusionComponentProps
 > {
-  public waterSourceConfig = [{ waterColor: 'b' as waterColorType }];
+  public waterSourceConfig: IWaterSource[] = [{ waterColor: 'b', id: 1 }];
 
   get bulbs(): Bulb[] {
     return this.props.transferLiquidsState.bulbs;
   }
 
-  // TODO: get type from storeShapes
-  get selectedBulb(): Bulb | WaterSource | null {
+  get selectedBulb(): selectedBulbType {
     return this.props.transferLiquidsState.selectedBulb;
   }
 
@@ -80,7 +78,6 @@ class TransfusionComponentC extends React.Component<
           selectedBulb={this.selectedBulb}
           waterSourceConfig={this.waterSourceConfig}
         ></BoardComponent>
-        <FooterComponent />
       </div>
     );
   }

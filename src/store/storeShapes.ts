@@ -1,5 +1,4 @@
-import { WaterSource } from '../components/water-source/WaterSource';
-import { Bulb } from '../TS-types';
+import { Bulb, selectedBulbType } from '../TS-types';
 
 export interface StoreState {
   colorMixerState: TransferLiquidsState;
@@ -8,7 +7,7 @@ export interface StoreState {
 
 export interface TransferLiquidsState {
   bulbs: Bulb[];
-  selectedBulb: Bulb | WaterSource | null;
+  selectedBulb: selectedBulbType;
   bulbId: number;
 }
 

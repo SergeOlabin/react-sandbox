@@ -5,7 +5,7 @@ import {
   removeBulbSelection,
 } from '../../store/transfusion/actions';
 import { SELECT_BULB } from '../../store/transfusion/types';
-import { Bulb, waterColorType } from '../../TS-types';
+import { Bulb, IWaterSource, selectedBulbType } from '../../TS-types';
 import BulbComponent from '../bulb/Bulb';
 import { WaterSource } from '../water-source/WaterSource';
 import './board.scss';
@@ -15,8 +15,8 @@ interface BoardComponentProps {
   removeBulbSelection: typeof removeBulbSelection;
   selectBulb: typeof actionOnBulb;
   bulbs: Bulb[];
-  selectedBulb: Bulb | WaterSource | null;
-  waterSourceConfig: Array<{ waterColor: waterColorType }>;
+  selectedBulb: selectedBulbType;
+  waterSourceConfig: IWaterSource[];
 }
 
 export default class BoardComponent extends React.Component<
@@ -28,6 +28,10 @@ export default class BoardComponent extends React.Component<
     } else if (isEqual(bulb, this.props.selectedBulb)) {
       this.props.removeBulbSelection();
     } else this.props.transferLiquid(bulb);
+  }
+
+  public isWaterSourceSelected(waterSource: IWaterSource) {
+    return this.props.selectedBulb === waterSource;
   }
 
   public render() {
@@ -43,9 +47,9 @@ export default class BoardComponent extends React.Component<
     const WaterSources = map(this.props.waterSourceConfig, (value, key) => {
       return (
         <WaterSource
-          // !!! Arr index is used as key !!! ALWAYS STATIC
-          key={key}
-          selected={this.props.selectedBulb instanceof WaterSource}
+          key={value.id}
+          value={value}
+          selected={this.isWaterSourceSelected(value)}
           onClick={this.bubleClick.bind(this)}
           waterColor={value.waterColor}
         ></WaterSource>
