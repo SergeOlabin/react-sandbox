@@ -1,6 +1,6 @@
 import { screenType } from '../storeShapes';
 
-type functionType = (asd?: any) => void;
+type functionType = (...args: any) => any;
 
 export function adaptDispatchToScreen(screen: screenType) {
   return <T extends functionType>(dispatchAction: T) => {

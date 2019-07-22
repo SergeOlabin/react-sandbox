@@ -68,6 +68,7 @@ class TransfusionComponentC extends React.Component<
       selectedBulbNew.waterLevel = rest;
     }
 
+    // this.props.transferLiquid({ bulbs: newBulbs });
     this.props.transferLiquid({ bulbs: newBulbs });
     this.props.removeBulbSelection();
   }
@@ -94,14 +95,16 @@ const mapStateToProps = (state: AppState) => ({
 });
 
 const dispatchesAdaptedToScreen = {
-  transferLiquid: (
-    opts: Omit<Parameters<typeof transferLiquid>[0], 'screen'>,
-  ) => transferLiquid({ ...opts, screen: 'transf' }),
+  transferLiquid: adaptDispatchToScreen('transf')<typeof transferLiquid>(
+    transferLiquid,
+  ),
   removeBulbSelection: adaptDispatchToScreen('transf')<
     typeof removeBulbSelection
   >(removeBulbSelection),
-  actionOnBulb: (opts: any) => actionOnBulb({ ...opts, screen: 'transf' }),
-  addBulb: (opts: any) => addBulb({ ...opts, screen: 'transf' }),
+  actionOnBulb: adaptDispatchToScreen('transf')<typeof actionOnBulb>(
+    actionOnBulb,
+  ),
+  addBulb: adaptDispatchToScreen('transf')<typeof addBulb>(addBulb),
 };
 
 const TransfusionComponent = connect(
