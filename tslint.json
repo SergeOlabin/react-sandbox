@@ -1,9 +1,5 @@
 {
-  "extends": [
-    "tslint:recommended",
-    "tslint-react",
-    "tslint-config-prettier"
-  ],
+  "extends": ["tslint:recommended", "tslint-react", "tslint-config-prettier"],
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
@@ -19,15 +15,29 @@
         "singleline": "never"
       }
     ],
-    "semicolon": [
-      true,
-      "always"
-    ],
+    "semicolon": [true, "always"],
     "jsx-no-lambda": [false, "always"],
     "jsx-no-bind": [false, "always"],
     "interface-name": [false, "always"],
-    "curly":[true, "ignore-same-line"],
+    "curly": [true, "ignore-same-line"],
     "jsx-self-close": [false, "always"],
-    "object-literal-sort-keys": [false, "always"]
+    "object-literal-sort-keys": [false, "always"],
+    "member-ordering": [
+      true,
+      {
+        "order": [
+          "private-static-field",
+          "public-static-field",
+          "private-instance-field",
+          "public-instance-field",
+          "private-constructor",
+          "public-constructor",
+          "private-instance-method",
+          "protected-instance-method",
+          "public-instance-method"
+        ],
+        "alphabetize": false
+      }
+    ]
   }
 }

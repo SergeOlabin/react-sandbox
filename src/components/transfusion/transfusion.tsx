@@ -10,7 +10,6 @@ import {
 } from '../../store/transfusion/actions';
 import { Bulb, IWaterSource, selectedBulbType } from '../../TS-types';
 import BoardComponent from '../board-component/Board';
-import { WaterSource } from '../water-source/WaterSource';
 
 export interface ITransfusionComponentProps {
   transferLiquidsState: TransferLiquidsState;
@@ -22,8 +21,6 @@ export interface ITransfusionComponentProps {
 class TransfusionComponentC extends React.Component<
   ITransfusionComponentProps
 > {
-  public waterSourceConfig: IWaterSource[] = [{ waterColor: 'b', id: 1 }];
-
   get bulbs(): Bulb[] {
     return this.props.transferLiquidsState.bulbs;
   }
@@ -31,9 +28,15 @@ class TransfusionComponentC extends React.Component<
   get selectedBulb(): selectedBulbType {
     return this.props.transferLiquidsState.selectedBulb;
   }
+  public waterSourceConfig: IWaterSource[] = [{ waterColor: 'b', id: 1 }];
 
-  public transferLiquid(destinationBulb: Bulb | WaterSource) {
-    if (destinationBulb instanceof WaterSource) return;
+  private _isBulbWaterSource(bulb: Bulb | IWaterSource) {
+    const typeChecker = bulb as Bulb;
+    return !typeChecker.volume;
+  }
+
+  public transferLiquid(destinationBulb: Bulb | IWaterSource) {
+    if (this._isBulbWaterSource(destinationBulb)) return;
 
     const destinationBulbIndex = this.bulbs.findIndex(
       (elem: Bulb) => destinationBulb === elem,
@@ -41,7 +44,7 @@ class TransfusionComponentC extends React.Component<
     const newBulbs = [...this.bulbs];
     const destinationBulbNew = newBulbs[destinationBulbIndex];
 
-    if (this.selectedBulb instanceof WaterSource) {
+    if (this.selectedBulb && this._isBulbWaterSource(this.selectedBulb)) {
       destinationBulbNew.waterLevel = destinationBulbNew.volume;
     } else {
       const selectedBulb = this.selectedBulb as Bulb;

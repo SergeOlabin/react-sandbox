@@ -14,6 +14,8 @@ interface BulbProps {
 }
 
 class BulbComponent extends React.Component<BulbProps> {
+  public bulbRef: React.RefObject<any> = React.createRef();
+
   public getSetyles() {
     return {
       height: `${this.props.value.volume * 10}px`,
@@ -49,7 +51,10 @@ class BulbComponent extends React.Component<BulbProps> {
         className="water-bulb"
         style={this.getSetyles()}
       >
-        <Water waterLevel={this.props.value.waterLevel}></Water>
+        <Water
+          waterLevel={this.props.value.waterLevel}
+          waterColor={this.props.value.waterColor}
+        ></Water>
         <span className="water-level-label">
           {this.props.value.waterLevel} / {this.props.value.volume}
         </span>

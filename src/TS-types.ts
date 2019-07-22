@@ -1,10 +1,11 @@
-export type waterColorType = 'r' | 'g' | 'b';
+export type shorthandColorType = 'r' | 'g' | 'b';
+export type waterColorType = shorthandColorType | number[];
 
 export interface Bulb {
   id: number;
   volume: number;
   waterLevel: number;
-  waterColor?: 'r' | 'g' | 'b'; // stands for 'red', 'green', 'blue'
+  waterColor?: waterColorType; // stands for 'red', 'green', 'blue'
 }
 
 export type selectedBulbType = Bulb | IWaterSource | null;

@@ -11,7 +11,7 @@ import { WaterSource } from '../water-source/WaterSource';
 import './board.scss';
 
 interface BoardComponentProps {
-  transferLiquid: (destinationBulb: Bulb | WaterSource) => void;
+  transferLiquid: (destinationBulb: Bulb | IWaterSource) => void;
   removeBulbSelection: typeof removeBulbSelection;
   selectBulb: typeof actionOnBulb;
   bulbs: Bulb[];
@@ -22,7 +22,7 @@ interface BoardComponentProps {
 export default class BoardComponent extends React.Component<
   BoardComponentProps
 > {
-  public bubleClick(bulb: Bulb | WaterSource) {
+  public bubleClick(bulb: Bulb | IWaterSource) {
     if (!this.props.selectedBulb) {
       this.props.selectBulb({ bulb, type: SELECT_BULB });
     } else if (isEqual(bulb, this.props.selectedBulb)) {

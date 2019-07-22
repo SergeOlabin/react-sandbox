@@ -1,5 +1,4 @@
-import { WaterSource } from '../../components/water-source/WaterSource';
-import { Bulb, waterColorType } from '../../TS-types';
+import { Bulb, IWaterSource, waterColorType } from '../../TS-types';
 import { routeToStateMap } from '../router-config';
 import { store } from '../store';
 import * as actionsTypes from './types';
@@ -22,7 +21,7 @@ export function actionOnBulb({
   bulb,
 }: {
   type: actionsTypes.BULB_ACTION_TYPE;
-  bulb: Bulb | WaterSource;
+  bulb: Bulb | IWaterSource;
 }) {
   return {
     type,

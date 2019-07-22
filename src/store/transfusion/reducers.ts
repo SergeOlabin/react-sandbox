@@ -24,43 +24,18 @@ const initialState2: TransferLiquidsState = {
   bulbs: [
     {
       id: 0,
-      volume: 10,
+      volume: 2,
       waterLevel: 0,
     },
     {
       id: 2,
-      volume: 10,
-      waterLevel: 2,
+      volume: 2,
+      waterLevel: 0,
     },
     {
       id: 3,
       volume: 10,
-      waterLevel: 2,
-    },
-    {
-      id: 4,
-      volume: 10,
-      waterLevel: 2,
-    },
-    {
-      id: 5,
-      volume: 10,
-      waterLevel: 2,
-    },
-    {
-      id: 6,
-      volume: 10,
-      waterLevel: 2,
-    },
-    {
-      id: 7,
-      volume: 10,
-      waterLevel: 2,
-    },
-    {
-      id: 8,
-      volume: 10,
-      waterLevel: 2,
+      waterLevel: 0,
     },
   ],
   selectedBulb: null,
@@ -100,6 +75,7 @@ export function commonLiquidsReducer(
         const bulbs = { ...state }.bulbs;
         const bulbIndex = bulbs.findIndex((elem: Bulb) => action.data === elem);
         bulbs[bulbIndex].waterLevel = 0;
+        bulbs[bulbIndex].waterColor = [0, 0, 0];
 
         return {
           ...state,
