@@ -26,7 +26,11 @@ const App: React.FC = () => {
       <NavbarComponent routes={routes}></NavbarComponent>
 
       {routeTemplateData}
-      <Redirect from="/" to={routes[0]} />
+      <Route
+        exact={true}
+        path="/"
+        component={() => <Redirect to={routes[0]} />}
+      />
       <FooterComponent />
     </div>
   );
