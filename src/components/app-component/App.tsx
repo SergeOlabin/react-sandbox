@@ -1,6 +1,10 @@
 import { map } from 'lodash';
 import React from 'react';
 import { Redirect, Route } from 'react-router';
+import {
+  colorMixerRouteName,
+  transferLiquidsRouteName,
+} from '../../store/router-config';
 import ColorMixer from '../color-mixer/color-mixer';
 import { NavbarComponent } from '../navbar/navbar';
 import TransfusionComponent from '../transfusion/transfusion';
@@ -8,8 +12,8 @@ import './App.scss';
 
 const App: React.FC = () => {
   const routerConfig = {
-    pelelivayka: TransfusionComponent,
-    'color-mixer': ColorMixer,
+    [transferLiquidsRouteName]: TransfusionComponent,
+    [colorMixerRouteName]: ColorMixer,
   };
   const routes = Object.keys(routerConfig);
   const routeTemplateData = map(routerConfig, (component, route) => (

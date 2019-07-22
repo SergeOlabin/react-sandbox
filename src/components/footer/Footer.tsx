@@ -1,6 +1,7 @@
 import React from 'react';
 import { Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
+import { addBulb } from '../../store/transfusion/actions';
 import { AddBulbModal } from '../add-bulb-modal/AddBulbModal';
 import './footer.scss';
 
@@ -9,7 +10,7 @@ interface FooterState {
 }
 
 interface FooterProps {
-  addBulb: Function;
+  addBulb: typeof addBulb;
 }
 
 class FooterComponentC extends React.Component<FooterProps, FooterState> {
@@ -50,7 +51,7 @@ class FooterComponentC extends React.Component<FooterProps, FooterState> {
 
 const FooterComponent = connect(
   null,
-  // { addBulb },
+  { addBulb },
 )(FooterComponentC);
 
 export default FooterComponent;

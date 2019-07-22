@@ -1,56 +1,47 @@
 import { WaterSource } from '../../components/water-source/WaterSource';
 import { Bulb, waterColorType } from '../../TS-types';
-import { screenType } from '../storeShapes';
+import { routeToStateMap } from '../router-config';
+import { store } from '../store';
 import * as actionsTypes from './types';
 
-export function transferLiquid({
-  bulbs,
-  screen,
-}: {
-  bulbs: Bulb[];
-  screen: screenType;
-}) {
+const getScreenName = () => {
+  const route = store.getState().router.location.pathname.replace('/', '');
+  return routeToStateMap[route];
+};
+
+export function transferLiquid({ bulbs }: { bulbs: Bulb[] }) {
   return {
     type: actionsTypes.TRANSFER_LIQUID,
     data: bulbs,
-    screen,
+    screen: getScreenName(),
   };
 }
 
 export function actionOnBulb({
   type,
   bulb,
-  screen,
 }: {
   type: actionsTypes.BULB_ACTION_TYPE;
   bulb: Bulb | WaterSource;
-  screen: screenType;
 }) {
-  console.log({
-    data: bulb,
-    type,
-    screen,
-  });
   return {
     type,
     data: bulb,
-    screen,
+    screen: getScreenName(),
   };
 }
 
-export const removeBulbSelection = ({ screen }: { screen: screenType }) => ({
+export const removeBulbSelection = () => ({
   type: actionsTypes.REMOVE_BULB_SELECTION,
-  screen,
+  screen: getScreenName(),
 });
 
-export const addBulb = (opts: {
-  data: {
-    volume: number;
-    waterLevel: number;
-    waterColor?: waterColorType;
-  };
-  screen: screenType;
+export const addBulb = (data: {
+  volume: number;
+  waterLevel: number;
+  waterColor?: waterColorType;
 }) => ({
   type: actionsTypes.ADD_BULB,
-  ...opts,
+  screen: getScreenName(),
+  data,
 });

@@ -10,7 +10,7 @@ interface BulbProps {
   value: Bulb;
   onClick: Function;
   selected: boolean;
-  actionOnBulb: typeof dispatchesAdaptedToScreen.actionOnBulb;
+  actionOnBulb: typeof actionOnBulb;
 }
 
 class BulbComponent extends React.Component<BulbProps> {
@@ -28,9 +28,10 @@ class BulbComponent extends React.Component<BulbProps> {
 
   public emptyBulb(evt: React.MouseEvent<any>) {
     evt.stopPropagation();
-    // this.props.actionOnBulb({
-    //   this.props.value,
-    // });
+    this.props.actionOnBulb({
+      type: 'EMPTY_BULB',
+      bulb: this.props.value,
+    });
   }
 
   public removeBulb(evt: React.MouseEvent<any>) {
@@ -66,16 +67,7 @@ class BulbComponent extends React.Component<BulbProps> {
   }
 }
 
-const dispatchesAdaptedToScreen = {
-  actionOnBulb: (opts: Omit<Parameters<typeof actionOnBulb>[0], 'screen'>) => {
-    actionOnBulb({
-      ...opts,
-      screen: 'transf',
-    });
-  },
-};
-
 export default connect(
   null,
-  dispatchesAdaptedToScreen,
+  { actionOnBulb },
 )(BulbComponent);

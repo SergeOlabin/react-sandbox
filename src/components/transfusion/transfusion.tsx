@@ -5,11 +5,9 @@ import { AppState } from '../../store/store';
 import { TransferLiquidsState } from '../../store/storeShapes';
 import {
   actionOnBulb,
-  addBulb,
   removeBulbSelection,
   transferLiquid,
 } from '../../store/transfusion/actions';
-import { adaptDispatchToScreen } from '../../store/utils/adapt-dispatch-to-screen.decorator';
 import { Bulb, waterColorType } from '../../TS-types';
 import BoardComponent from '../board-component/Board';
 import FooterComponent from '../footer/Footer';
@@ -17,10 +15,9 @@ import { WaterSource } from '../water-source/WaterSource';
 
 export interface ITransfusionComponentProps {
   transferLiquidsState: TransferLiquidsState;
-  transferLiquid: typeof dispatchesAdaptedToScreen.transferLiquid;
-  removeBulbSelection: typeof dispatchesAdaptedToScreen.removeBulbSelection;
-  actionOnBulb: typeof dispatchesAdaptedToScreen.actionOnBulb;
-  addBulb: typeof dispatchesAdaptedToScreen.addBulb;
+  transferLiquid: typeof transferLiquid;
+  removeBulbSelection: typeof removeBulbSelection;
+  actionOnBulb: typeof actionOnBulb;
 }
 
 class TransfusionComponentC extends React.Component<
@@ -68,7 +65,6 @@ class TransfusionComponentC extends React.Component<
       selectedBulbNew.waterLevel = rest;
     }
 
-    // this.props.transferLiquid({ bulbs: newBulbs });
     this.props.transferLiquid({ bulbs: newBulbs });
     this.props.removeBulbSelection();
   }
@@ -84,7 +80,7 @@ class TransfusionComponentC extends React.Component<
           selectedBulb={this.selectedBulb}
           waterSourceConfig={this.waterSourceConfig}
         ></BoardComponent>
-        <FooterComponent addBulb={this.props.addBulb} />
+        <FooterComponent />
       </div>
     );
   }
@@ -94,21 +90,21 @@ const mapStateToProps = (state: AppState) => ({
   transferLiquidsState: state.transferLiquids,
 });
 
-const dispatchesAdaptedToScreen = {
-  transferLiquid: adaptDispatchToScreen('transf')<typeof transferLiquid>(
-    transferLiquid,
-  ),
-  removeBulbSelection: adaptDispatchToScreen('transf')<
-    typeof removeBulbSelection
-  >(removeBulbSelection),
-  actionOnBulb: adaptDispatchToScreen('transf')<typeof actionOnBulb>(
-    actionOnBulb,
-  ),
-  addBulb: adaptDispatchToScreen('transf')<typeof addBulb>(addBulb),
-};
+// const dispatchesAdaptedToScreen = {
+//   transferLiquid: adaptDispatchToScreen('transf')<typeof transferLiquid>(
+//     transferLiquid,
+//   ),
+//   removeBulbSelection: adaptDispatchToScreen('transf')<
+//     typeof removeBulbSelection
+//   >(removeBulbSelection),
+//   actionOnBulb: adaptDispatchToScreen('transf')<typeof actionOnBulb>(
+//     actionOnBulb,
+//   ),
+//   addBulb: adaptDispatchToScreen('transf')<typeof addBulb>(addBulb),
+// };
 
 const TransfusionComponent = connect(
   mapStateToProps,
-  dispatchesAdaptedToScreen,
+  { transferLiquid, removeBulbSelection, actionOnBulb },
 )(TransfusionComponentC);
 export default TransfusionComponent;

@@ -1,5 +1,5 @@
 import { Bulb } from '../../TS-types';
-import { transferLiquidActions, TransferLiquidsState } from '../storeShapes';
+import { ITransferLiquidActions, TransferLiquidsState } from '../storeShapes';
 import * as actionsTypes from './types';
 
 const initialState: TransferLiquidsState = {
@@ -21,7 +21,7 @@ const initialState: TransferLiquidsState = {
 
 export function transferLiquidReducer(
   state = initialState,
-  action: transferLiquidActions,
+  action: ITransferLiquidActions,
 ): TransferLiquidsState {
   return action.screen === 'transf'
     ? commonLiquidsReducer(state, action)
@@ -30,7 +30,7 @@ export function transferLiquidReducer(
 
 export function colorMixerReducer(
   state = initialState,
-  action: transferLiquidActions,
+  action: ITransferLiquidActions,
 ): TransferLiquidsState {
   return action.screen === 'mixer'
     ? commonLiquidsReducer(state, action)
@@ -39,7 +39,7 @@ export function colorMixerReducer(
 
 export function commonLiquidsReducer(
   state = initialState,
-  action: transferLiquidActions,
+  action: ITransferLiquidActions,
 ): TransferLiquidsState {
   switch (action.type) {
     case actionsTypes.TRANSFER_LIQUID:

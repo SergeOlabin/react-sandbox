@@ -14,7 +14,7 @@ export interface TransferLiquidsState {
 
 export type screenType = 'transf' | 'mixer';
 
-export interface transferLiquidActions {
+export interface ITransferLiquidActions {
   type: string;
   data?: any;
   screen: screenType;
