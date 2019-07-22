@@ -87,19 +87,6 @@ const mapStateToProps = (state: AppState) => ({
   transferLiquidsState: state.transferLiquids,
 });
 
-// const dispatchesAdaptedToScreen = {
-//   transferLiquid: adaptDispatchToScreen('transf')<typeof transferLiquid>(
-//     transferLiquid,
-//   ),
-//   removeBulbSelection: adaptDispatchToScreen('transf')<
-//     typeof removeBulbSelection
-//   >(removeBulbSelection),
-//   actionOnBulb: adaptDispatchToScreen('transf')<typeof actionOnBulb>(
-//     actionOnBulb,
-//   ),
-//   addBulb: adaptDispatchToScreen('transf')<typeof addBulb>(addBulb),
-// };
-
 const TransfusionComponent = connect(
   mapStateToProps,
   { transferLiquid, removeBulbSelection, actionOnBulb },

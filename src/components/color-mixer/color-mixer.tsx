@@ -8,6 +8,7 @@ import {
 } from '../../store/transfusion/actions';
 import { Bulb, IWaterSource, selectedBulbType } from '../../TS-types';
 import BoardComponent from '../board-component/Board';
+import './color-mixer.scss';
 
 export interface IColorMixerProps {
   colorMixerState: TransferLiquidsState;
@@ -36,14 +37,16 @@ class ColorMixerC extends React.Component<IColorMixerProps> {
 
   public render() {
     return (
-      <BoardComponent
-        transferLiquid={this.transferLiquid.bind(this)}
-        removeBulbSelection={this.props.removeBulbSelection.bind(this)}
-        selectBulb={this.props.actionOnBulb}
-        bulbs={this.bulbs}
-        selectedBulb={this.selectedBulb}
-        waterSourceConfig={this.waterSourceConfig}
-      ></BoardComponent>
+      <div className="color-mixer">
+        <BoardComponent
+          transferLiquid={this.transferLiquid.bind(this)}
+          removeBulbSelection={this.props.removeBulbSelection.bind(this)}
+          selectBulb={this.props.actionOnBulb}
+          bulbs={this.bulbs}
+          selectedBulb={this.selectedBulb}
+          waterSourceConfig={this.waterSourceConfig}
+        ></BoardComponent>
+      </div>
     );
   }
 }

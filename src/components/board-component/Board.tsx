@@ -63,7 +63,7 @@ export default class BoardComponent extends React.Component<
       >
         <div className="bulbs-container">
           <div className="bulbs">{bulbs}</div>
-          {WaterSources}
+          <div className="water-sources">{WaterSources}</div>
         </div>
       </div>
     );

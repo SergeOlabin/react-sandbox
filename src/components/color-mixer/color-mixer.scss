@@ -1,0 +1,26 @@
+.color-mixer {
+  .bulbs-container {
+    height: 630px;
+    flex-direction: column;
+
+    .bulbs {
+      width: calc(100% - 2 * 20px);
+      height: 70%;
+      margin: 20px;
+      flex-wrap: wrap;
+      justify-content: space-around;
+      align-items: baseline;
+
+      .water-bulb {
+        max-height: 150px;
+      }
+    }
+
+    .water-sources {
+      width: 100%;
+      height: 20%;
+      display: flex;
+      justify-content: space-around;
+    }
+  }
+}

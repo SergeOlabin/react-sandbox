@@ -19,6 +19,53 @@ const initialState: TransferLiquidsState = {
   selectedBulb: null,
 };
 
+const initialState2: TransferLiquidsState = {
+  bulbId: 10,
+  bulbs: [
+    {
+      id: 0,
+      volume: 10,
+      waterLevel: 0,
+    },
+    {
+      id: 2,
+      volume: 10,
+      waterLevel: 2,
+    },
+    {
+      id: 3,
+      volume: 10,
+      waterLevel: 2,
+    },
+    {
+      id: 4,
+      volume: 10,
+      waterLevel: 2,
+    },
+    {
+      id: 5,
+      volume: 10,
+      waterLevel: 2,
+    },
+    {
+      id: 6,
+      volume: 10,
+      waterLevel: 2,
+    },
+    {
+      id: 7,
+      volume: 10,
+      waterLevel: 2,
+    },
+    {
+      id: 8,
+      volume: 10,
+      waterLevel: 2,
+    },
+  ],
+  selectedBulb: null,
+};
+
 export function transferLiquidReducer(
   state = initialState,
   action: ITransferLiquidActions,
@@ -29,7 +76,7 @@ export function transferLiquidReducer(
 }
 
 export function colorMixerReducer(
-  state = initialState,
+  state = initialState2,
   action: ITransferLiquidActions,
 ): TransferLiquidsState {
   return action.screen === 'mixer'
