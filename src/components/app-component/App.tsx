@@ -1,20 +1,20 @@
 import { map } from 'lodash';
-import React from 'react';
-import { Redirect, Route } from 'react-router';
+import React, { lazy, Suspense } from 'react';
+import { Redirect, Route, Switch } from 'react-router';
 import {
   colorMixerRouteName,
   transferLiquidsRouteName,
 } from '../../store/router-config';
-import ColorMixer from '../color-mixer/color-mixer';
 import FooterComponent from '../footer/Footer';
 import { NavbarComponent } from '../navbar/navbar';
-import TransfusionComponent from '../transfusion/transfusion';
 import './App.scss';
 
 const App: React.FC = () => {
   const routerConfig = {
-    [transferLiquidsRouteName]: TransfusionComponent,
-    [colorMixerRouteName]: ColorMixer,
+    [transferLiquidsRouteName]: lazy(() =>
+      import('../transfusion/transfusion'),
+    ),
+    [colorMixerRouteName]: lazy(() => import('../color-mixer/color-mixer')),
   };
   const routes = Object.keys(routerConfig);
   const routeTemplateData = map(routerConfig, (component, route) => (
@@ -25,12 +25,17 @@ const App: React.FC = () => {
     <div>
       <NavbarComponent routes={routes}></NavbarComponent>
 
-      {routeTemplateData}
-      <Route
-        exact={true}
-        path="/"
-        component={() => <Redirect to={routes[0]} />}
-      />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Switch>
+          {routeTemplateData}
+          <Route
+            exact={true}
+            path="/"
+            component={() => <Redirect to={routes[0]} />}
+          />
+        </Switch>
+      </Suspense>
+
       <FooterComponent />
     </div>
   );
