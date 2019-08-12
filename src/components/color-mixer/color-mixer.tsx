@@ -104,6 +104,10 @@ class ColorMixerC extends React.Component<IColorMixerProps> {
     this.props.removeBulbSelection();
   }
 
+  public changeBulbs() {
+    this.props.colorMixerState.bulbs[0].volume = 228;
+  }
+
   public render() {
     return (
       <div className="color-mixer">

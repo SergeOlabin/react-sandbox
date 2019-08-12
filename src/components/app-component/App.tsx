@@ -3,6 +3,7 @@ import React, { lazy, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
 import {
   colorMixerRouteName,
+  postsRouteName,
   transferLiquidsRouteName,
 } from '../../store/router-config';
 import FooterComponent from '../footer/Footer';
@@ -15,6 +16,7 @@ const App: React.FC = () => {
       import('../transfusion/transfusion'),
     ),
     [colorMixerRouteName]: lazy(() => import('../color-mixer/color-mixer')),
+    [postsRouteName]: lazy(() => import('../posts/Posts')),
   };
   const routes = Object.keys(routerConfig);
   const routeTemplateData = map(routerConfig, (component, route) => (

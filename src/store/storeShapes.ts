@@ -1,8 +1,9 @@
-import { Bulb, selectedBulbType } from '../TS-types';
+import { Bulb, IPost, selectedBulbType } from '../TS-types';
 
 export interface StoreState {
   colorMixerState: TransferLiquidsState;
   transferLiquids: TransferLiquidsState;
+  posts: IPostsState;
 }
 
 export interface TransferLiquidsState {
@@ -11,10 +12,10 @@ export interface TransferLiquidsState {
   bulbId: number;
 }
 
-export type screenType = 'transf' | 'mixer';
-
-export interface ITransferLiquidActions {
-  type: string;
-  data?: any;
-  screen: screenType;
+export interface IPostsState {
+  posts: IPost[];
+  isFetching: boolean;
+  isValid: boolean;
 }
+
+export type screenType = 'transf' | 'mixer' | 'posts';

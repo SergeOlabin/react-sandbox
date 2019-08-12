@@ -7,11 +7,13 @@ import {
   colorMixerReducer,
   transferLiquidReducer,
 } from './transfusion/reducers';
+import { postsData } from './user-data/reducers';
 
 export const history = createBrowserHistory();
 export const rootReducer = combineReducers({
   transferLiquids: transferLiquidReducer,
   colorMixer: colorMixerReducer,
+  postsData, // the same name can be used for key and reducer value without specifiyng 'reducer'
   router: connectRouter(history),
 });
 
