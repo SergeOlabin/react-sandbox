@@ -1,6 +1,12 @@
 import { Bulb } from '../../TS-types';
-import { ITransferLiquidActions, TransferLiquidsState } from '../storeShapes';
+import { screenType, TransferLiquidsState } from '../storeShapes';
 import * as actionsTypes from './types';
+
+export interface ITransferLiquidActions {
+  type: string;
+  data?: any;
+  screen: screenType;
+}
 
 const transfusionInitialState: TransferLiquidsState = {
   bulbId: 2,

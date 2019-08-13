@@ -9,7 +9,7 @@ export interface INavbarProps {
 export function NavbarComponent({ routes }: INavbarProps) {
   const routeTemaplateData = routes.map(value => (
     <div key={value} className="route-link">
-      <RounterLink route={value}>{value}</RounterLink>
+      <RounterLink route={value}></RounterLink>
     </div>
   ));
 

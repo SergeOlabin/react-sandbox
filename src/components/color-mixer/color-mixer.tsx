@@ -26,12 +26,6 @@ export interface IColorMixerProps {
 }
 
 class ColorMixerC extends React.Component<IColorMixerProps> {
-  public waterSourceConfig: IWaterSource[] = [
-    { waterColor: 'r', id: 1 },
-    { waterColor: 'g', id: 2 },
-    { waterColor: 'b', id: 3 },
-  ];
-
   get selectedBulb(): selectedBulbType {
     return this.props.colorMixerState.selectedBulb;
   }
@@ -39,6 +33,11 @@ class ColorMixerC extends React.Component<IColorMixerProps> {
   get bulbs(): Bulb[] {
     return this.props.colorMixerState.bulbs;
   }
+  public waterSourceConfig: IWaterSource[] = [
+    { waterColor: 'r', id: 1 },
+    { waterColor: 'g', id: 2 },
+    { waterColor: 'b', id: 3 },
+  ];
 
   private _isBulbWaterSource(bulb: Bulb | IWaterSource) {
     const typeChecker = bulb as Bulb;
@@ -103,6 +102,10 @@ class ColorMixerC extends React.Component<IColorMixerProps> {
 
     this.props.transferLiquid({ bulbs: newBulbs });
     this.props.removeBulbSelection();
+  }
+
+  public changeBulbs() {
+    this.props.colorMixerState.bulbs[0].volume = 228;
   }
 
   public render() {

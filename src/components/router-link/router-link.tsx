@@ -3,10 +3,9 @@ import { NavLink } from 'react-router-dom';
 
 export interface IRounterLinkProps {
   route: string;
-  children?: any;
 }
 
-export function RounterLink({ route, children }: IRounterLinkProps) {
+export function RounterLink({ route }: IRounterLinkProps) {
   return (
     <NavLink
       exact={true}
@@ -16,7 +15,7 @@ export function RounterLink({ route, children }: IRounterLinkProps) {
         color: 'black',
       }}
     >
-      {children}
+      {route}
     </NavLink>
   );
 }

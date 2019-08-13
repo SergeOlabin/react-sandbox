@@ -1,7 +1,6 @@
 import { shorthandColorType } from '../../TS-types';
 
 type colorType = number[];
-const colorRangeLimit = 255;
 
 export class ColorMixerHelper {
   private static _colorMap = {
